@@ -474,28 +474,32 @@ For sn = 1 To o
                     
                     y(0) = x(0)
                     y(1) = x(1) + 186.5455
-					
+                    
                     Set line = ThisDrawing.ModelSpace.AddLine(x, y)
                     line.Update
-					
-                    Dim aix(0 To 2) As Double
-                    aix(0) = x(0)
-                    aix(1) = x(1) - (200) + 25 'notice here 200 is beam width
-'                    Set line = ThisDrawing.ModelSpace.AddLine(asx, asi)
+                    
+                    Dim adi(0 To 2) As Double
+                    adi(0) = x(0)
+                    adi(1) = x(1) - 25 ' notice here 25 is cover lenght...
+'                    Set line = ThisDrawing.ModelSpace.AddLine(adi, x)
 '                    line.Update
 
                     nio = 3
                     For nis = 1 To nio
-                        Dim ali(0 To 2) As Double
-                        ali(0) = asi(0)
-                        ali(1) = asi(1) - 200 + 25 + 25
-                        Set line = ThisDrawing.ModelSpace.AddLine(asi, ali)
+                        Dim aki(0 To 2) As Double
+                        aki(0) = adi(0)
+                        aki(1) = adi(1) - 200 + 25 + 25
+                        Set line = ThisDrawing.ModelSpace.AddLine(aki, adi)
                         line.Update
                             
-                        asi(0) = asi(0) + 120
-                        asi(1) = asi(1)
+                        adi(0) = adi(0) + 120
+                        adi(1) = adi(1)
                         
                     Next nis
+                        
+                    
+                    
+                    
             ' ___________________________________ top top top top .....
                     ' column width is = = = f(n-1)
                     Dim eee(0 To 2) As Double
@@ -806,9 +810,11 @@ For sn = 1 To o
                    line.Update
                     z(0) = y(0) + p(sn - 1)
                     z(1) = x(1)
-                    
                     Set line = ThisDrawing.ModelSpace.AddLine(x, z)
                     line.Update
+
+                    
+                    
                     i(0) = z(0)
                     i(1) = z(1) + 186.5455
 
@@ -986,9 +992,30 @@ For sn = 1 To o
                 End If
                         
                     
-                   line.Update
+                    line.Update
                     z(0) = y(0) + p(sn - 1)
                     z(1) = x(1)
+                    
+                    Dim dzo(0 To 2) As Double
+                    dzo(0) = z(0)
+                    dzo(1) = z(1) - 25
+'                    Set line = ThisDrawing.ModelSpace.AddLine(dzi, z)
+'                    line.Update
+                                    
+                    ' loop for sheear rein
+                    nio = 3
+                    For nis = 1 To nio
+                        Dim sho(0 To 2) As Double
+                        sho(0) = dzo(0)
+                        sho(1) = dzo(1) - 200 + 25 + 25
+                        Set line = ThisDrawing.ModelSpace.AddLine(sho, dzo)
+                        line.Update
+                            
+                        dzo(0) = dzo(0) - 120
+                        dzo(1) = dzo(1)
+                            
+                    Next nis
+                                    
                     
                     Set line = ThisDrawing.ModelSpace.AddLine(x, z)
                     line.Update
@@ -1006,6 +1033,8 @@ For sn = 1 To o
                     
                     ptc1(0) = jis(0)
                     ptc1(1) = jis(1)
+'                      Set line = ThisDrawing.ModelSpace.AddLine(jii, z)
+'                     line.Update
 
                     ptc2(0) = jii(0)
                     ptc2(1) = jii(1)
@@ -1469,6 +1498,7 @@ End Sub
 
       
   
+
 
 
 
