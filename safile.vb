@@ -1,4 +1,15 @@
+Attribute VB_Name = "Module1"
 Public Sub TestGetPoint()
+' ////////////////////////////////////////////////////////////////////////
+' Around here creatte an enviroment that exist just like beam detail drawing
+
+' 1.layer
+
+
+' 2.text style
+
+' //////////////////////////////////////////////////////////////////////////
+
 Dim varPick As Variant
 
 With ThisDrawing.Utility
@@ -25,6 +36,7 @@ Dim f(0 To 100) As Double
 
 p(0) = 2700
 p(1) = 2000
+
 p(2) = 2500
 p(3) = 2500
 p(4) = 2500
@@ -411,7 +423,8 @@ For sn = 1 To o
                     Dim tcj(0 To 2) As Double
                     tcj(0) = tcc(0) - 69.6153
                     tcj(1) = tcc(1) + 90.4984
-
+                    
+                    'what if the number is letter? block letter???
                     Set textObj = ThisDrawing.ModelSpace.AddMText(tcj, 200, sn)
                     textObj.height = 200
                         
@@ -1456,48 +1469,138 @@ Next sn
      
 End With
 
+' rebar dwg...
+
+            Dim ra(0 To 2) As Double
+                ra(0) = asj(0)
+                ra(1) = asj(1) - 1695.1543
+'            Set line = ThisDrawing.ModelSpace.AddLine(ra, asj)
+'            line.Update
+
+            ' 2.with ra(0).. go a distance of (bw-2*cover) down..rax(0)
+                ' and add a curve that with degree of 45 with
+                ' distance of.. with rai(0) var
+
+            ' going distance down
+                Dim disb(0 To 2) As Double
+                    disb(0) = ra(0)
+                    disb(1) = ra(1) + 350 'rbs=sec - (25+25)
+                Set line = ThisDrawing.ModelSpace.AddLine(ra, disb)
+                line.Update
+            ' doing the curver
+                Dim dicu(0 To 2) As Double
+                    dicu(0) = disb(0) + 128.774
+                    dicu(1) = ra(1) + 67.878
+                Set line = ThisDrawing.ModelSpace.AddLine(ra, dicu)
+                line.Update
+
+                ' *span_1 + span_2...+ rbs < 12 kind of create a loop here...
+                        ' such that the loop here would do is..cumulitative kind of thing
+                        
+                For pn = 1 To o
+                    
+                    sum = p(pn - 1) + p(pn) '+ constants
+                    ' sum= t1 + t2 + constants
+                        ' t1=t2
+                         p(pn - 1) = p(pn)
+                         p(pn) = sum
+
+                    
+                    
+                    gum = f(pn - 1) + f(pn) '+ constants
+                    ' sum= t1 + t2 + constants
+                        ' t1=t2
+                         f(pn - 1) = f(pn)
+                         f(pn) = gum
+                         
+                    fnl = gum + sum - 25
+                        ' 14675
+                        
+                    If fnl < 12000 Then
+                '             exit if
+                        Else
+    
+                            pn = pn - 1
+                            s = p(pn) / 2
+                            
+                            rev = fnl + s - p(pn + 1) - p(pn) - f(pn + 1)
+                            
+                            
+                                Dim conkt(0 To 2) As Double
+                                    conkt(0) = disb(0) + rev
+                                    conkt(1) = disb(1)
+                                Set line = ThisDrawing.ModelSpace.AddLine(conkt, disb)
+                                line.Update
+                                ' go a distance up of 148.2
+                                
+                                Dim conki(0 To 2) As Double
+                                    conki(0) = conkt(0)
+                                    conki(1) = conkt(1) + 148.2
+                                Set line = ThisDrawing.ModelSpace.AddLine(conkt, ra)
+                                line.Update
+                                
+                                ' Loop for sum not new but use the last rev one...
+                                
+                            ' some how try making 12 to 24 and .. other
+                            ' rev =
+                            ' pn=4
+                            ' go to
+                            
+                    End If
+                                                
+                Next pn
+
+
+                
+                    
+                ' *then find the previous from the last span..
+                ' *try doing the overlap.. here..dependent on dimeter of bar
+                    
+                    ' *......part_1........
+                    ' *go at a distance of overlap/2.. and do the curve
+                    ' *at the half of the journey find the coordinate().. do the curve
+                    ' *go up at distance of 148.2 up and go a dist of overlap/2 back and coordinate()
+                    ' *do the curve then
+                    
+                    ' *......part_1_End........
+                    ' *from there   test again span_3 + span_4 + recentSpan/2..<12
+                        ' how to know the last section part?
+                            ' some how find a relation with the loop Safie .. has
+                    ' *go a distance down of 148.2
+                        ' *repeat part_1...
+                        
+                
+'    Else
+        ' proceed just like ordinary
+        
+        
+        
+'    End If
+        
+
+' 4.
+
+
+' 5.
+
+
+
+
+
+
+
+
+
+
+
+
+
 End Sub
 
 
 
 
-' 1st organize codes...
-   
 
-' ideas__ for ... Rebar_...
-
-
-    ' 1st__ using the first if parrtt...
-        ' try to find two coodinates say... aos() and ais()
-            ' join the pts with line
-        
-        ' ___ the Shear Reinforcemnt details_____
-                ' need a loop for this one to be incusive of ...
-                    ' as a forward Rein placement
-                        ' using the coordinate x()..
-                            
-                    ' as a backward Rein placement
-                        ' using the coordinate z()..
-                        
-    ' 2nd__
-        ' ___ the Shear Reinforcemnt details_____
-                ' need a loop for this one to be incusive of ...
-                    ' as a forward Rein placement
-                        ' using the coordinate x()..
-                            
-                    ' as a backward Rein placement
-                        ' using the coordinate z()..
-
-
-    ' 3rd__  using the last part at the outer..
-          'try to find two coordinate say ... aoo() and aio().
-            ' join the pts with line
-            
-            ' join the pts  with the 1st___with line
-
-
-      
-  
 
 
 
